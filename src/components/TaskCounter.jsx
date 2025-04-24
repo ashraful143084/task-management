@@ -5,7 +5,7 @@ const TaskCounter = ({ type = "todo", counter = 0 }) => {
     <>
       <div className={`flex flex-col justify-center items-center`}>
         <div
-          className={`border-2 ${type === "todo" && "border-red-600"} ${
+          className={`border-4 ${type === "todo" && "border-red-600"} ${
             type == "inProgress" && "border-orange-500"
           } ${
             type === "completed" && "border-green-600"

@@ -5,7 +5,7 @@ import TaskOrder from "./TaskOrder";
 const FilterBar = () => {
   return (
     <>
-      <div className="flex justify-between items-center w-full">
+      <div className="flex justify-between items-center w-full pb-12">
         <TaskPagination />
         <TaskOrder />
       </div>

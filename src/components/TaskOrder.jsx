@@ -11,12 +11,11 @@ const TaskOrder = () => {
     <>
       <Select>
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Theme" />
+          <SelectValue placeholder="Select Order" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="light">Light</SelectItem>
-          <SelectItem value="dark">Dark</SelectItem>
-          <SelectItem value="system">System</SelectItem>
+          <SelectItem value="asc">ASC</SelectItem>
+          <SelectItem value="dsc">DSC</SelectItem>
         </SelectContent>
       </Select>
     </>

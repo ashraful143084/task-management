@@ -1,15 +1,17 @@
 import FilterBar from "@/components/FilterBar";
+import TaskCard from "@/components/TaskCard";
 import TaskCounter from "@/components/TaskCounter";
+import TaskSideBar from "@/components/TaskSideBar";
 import React from "react";
 
 const tasks = () => {
   return (
     <>
-      <section className="flex w-full p-4 gap-8 max-lg:flex-col-reverse">
+      <section className="flex w-full p-4 gap-8 max-lg:flex-col-reverse mt-[50px]">
         <section className="flex max-lg:w-full basis-2/3 h-40 w-full justify-center">
           <div className="flex w-10/12 flex-col p-4">
             <div className="flex flex-col mb-5">
-              <h1 className="text-white text-2xl font-bold pb-8">
+              <h1 className="text-white text-4xl max-lg:text-2xl font-bold pb-12">
                 Tasks as on: Wednesday, 25 April 2025
               </h1>
               <div className="flex justify-between w-full items-center">
@@ -20,17 +22,13 @@ const tasks = () => {
             </div>
             <div className="mt-10">
               <FilterBar />
+              <TaskCard />
             </div>
           </div>
         </section>
 
-        <section className="flex basis-1/3 h-40 bg-red-400 w-full max-lg:w-full">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero
-          voluptate tempore qui corporis doloribus numquam ipsa architecto
-          assumenda sequi, ipsam molestiae eveniet quas minima quia? Iure autem
-          voluptatem quos soluta sint laudantium consequatur recusandae officia!
-          Laborum eligendi voluptatem earum doloribus, quis ipsum error
-          praesentium architecto quos, saepe, ducimus exercitationem vel.
+        <section className="flex basis-1/3 w-full max-lg:w-full">
+          <TaskSideBar />
         </section>
       </section>
     </>
