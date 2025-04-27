@@ -3,11 +3,22 @@ import Tasks from "./pages/tasks/tasks";
 import Signup from "./pages/signup/signup";
 import Login from "./pages/login/login";
 import NotFound from "./pages/404/notFound";
+import { SonnerDemo } from "./pages/demo";
+import PrivateRoutes from "./privateRoutes/privateRoutes";
 
 export const router = createBrowserRouter([
   {
+    element: <PrivateRoutes />,
+    children: [
+      {
+        path: "tasks",
+        element: <Tasks />,
+      },
+    ],
+  },
+  {
     path: "/",
-    element: <Tasks />,
+    element: <Login />,
   },
   {
     path: "login",
@@ -17,10 +28,12 @@ export const router = createBrowserRouter([
     path: "signup",
     element: <Signup />,
   },
+
   {
-    path: "tasks",
-    element: <Tasks />,
+    path: "demo",
+    element: <SonnerDemo />,
   },
+
   {
     path: "*",
     element: <NotFound />,

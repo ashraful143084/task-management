@@ -17,21 +17,40 @@ import { SignupSchema } from "@/schema/SignupSchema";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useSignup } from "@/hooks/useSignup.hook";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const Signup = () => {
+  const { mutate, isSuccess, isError } = useSignup();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("User Created Successfully");
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error("Uh Ho! Your request failed", {
+        description: "Possibly the user already exits",
+      });
+    }
+  }, [isError]);
+
   const form = useForm({
     resolver: zodResolver(SignupSchema),
   });
 
   const onSubmit = (values) => {
-    console.log(values);
+    mutate(values);
+    form.reset();
   };
+
   return (
     <>
       <section className="flex justify-center items-center max-w-xl min-h-screen w-full">

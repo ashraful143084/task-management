@@ -26,7 +26,7 @@ const TaskCard = (props) => {
 
   return (
     <section>
-      <div>
+      <div className="mb-4">
         <Card>
           <CardHeader>
             <CardTitle className="flex justify-between items-center">

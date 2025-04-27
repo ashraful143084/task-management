@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -33,20 +33,37 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { TaskSchema } from "@/schema/TaskSchema";
+import { useCreateTask } from "@/hooks/useCreateTask.hook";
+import { toast } from "sonner";
 
 const CreateTaskForm = () => {
   const [date, setDate] = useState();
+
+  const { mutate, isSuccess, isError } = useCreateTask();
 
   const form = useForm({
     resolver: zodResolver(TaskSchema),
   });
 
   const onSubmit = (values) => {
-    console.log(values);
-
-    const dueDate = JSON.stringify(values.dueDate);
-    console.log(dueDate);
+    const dueDate = values.dueDate.toISOString();
+    mutate({ ...values, dueDate });
+    form.reset();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Task Created Successfully");
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error("Uh Ho! Your request failed", {
+        description: "Task not Created, Please try again later",
+      });
+    }
+  }, [isError]);
 
   return (
     <>

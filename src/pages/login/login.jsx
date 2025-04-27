@@ -16,22 +16,51 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { LoginSchema } from "@/schema/LoginSchema";
+import { useLogin } from "@/hooks/useLogin.hook";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const { mutate, isSuccess, isError } = useLogin();
+  const [login, setLogin] = useState(false);
+
+  const navigate = useNavigate();
+
   const form = useForm({
     resolver: zodResolver(LoginSchema),
   });
 
   const onSubmit = (values) => {
-    console.log(values);
+    mutate(values);
+    form.reset();
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      setLogin(true);
+      toast.success("Login Successful");
+    }
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error("Uh Ho! Your request failed", {
+        description: "Invalid Email/Password",
+      });
+    }
+  }, [isError]);
+
+  useEffect(() => {
+    if (login) {
+      navigate("/tasks");
+    }
+  }, [login]);
 
   return (
     <>

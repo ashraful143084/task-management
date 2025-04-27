@@ -1,10 +1,22 @@
+import { DisplaySkeleton } from "@/components/DisplaySkeleton";
 import FilterBar from "@/components/FilterBar";
 import TaskCard from "@/components/TaskCard";
 import TaskCounter from "@/components/TaskCounter";
 import TaskSideBar from "@/components/TaskSideBar";
-import React from "react";
+import { useFetchTask } from "@/hooks/useFetchTask.hook.js";
+import React, { useState } from "react";
 
-const tasks = () => {
+const Tasks = () => {
+  const [order] = useState("asc");
+  const [limit] = useState(10);
+  const [page] = useState(1);
+
+  const { data } = useFetchTask({
+    limit,
+    page,
+    order,
+  });
+
   return (
     <>
       <section className="flex w-full p-4 gap-8 max-lg:flex-col-reverse mt-[50px]">
@@ -22,7 +34,23 @@ const tasks = () => {
             </div>
             <div className="mt-10">
               <FilterBar />
-              <TaskCard />
+
+              {!data &&
+                [...Array(limit)].map((_entry, index) => (
+                  <DisplaySkeleton key={index} />
+                ))}
+
+              {data &&
+                data.data.map((task, key) => (
+                  <TaskCard
+                    title={task.title}
+                    description={task.description}
+                    priority={task.priority}
+                    status={task.status}
+                    dueDate={new Date(task.dueDate)}
+                    key={key}
+                  />
+                ))}
             </div>
           </div>
         </section>
@@ -35,4 +63,4 @@ const tasks = () => {
   );
 };
 
-export default tasks;
+export default Tasks;
