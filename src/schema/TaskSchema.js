@@ -20,4 +20,5 @@ export const TaskSchema = z.object({
   }),
   status: z.enum(["todo", "inProgress", "completed"]),
   priority: z.enum(["low", "normal", "high"]),
+  taskFile: z.any().optional(),
 });

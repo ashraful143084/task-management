@@ -1,15 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 
-const createTask = async (task) => {
+const createTask = async (formData) => {
+  console.log("Form Data from Hook", formData);
   const token = Cookies.get("token");
   const response = await fetch(`${import.meta.env.VITE_API_URL}tasks/create`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(task),
+    body: formData,
   });
 
   if (!response.ok) {

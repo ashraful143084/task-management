@@ -3,19 +3,29 @@ import FilterBar from "@/components/FilterBar";
 import TaskCard from "@/components/TaskCard";
 import TaskCounter from "@/components/TaskCounter";
 import TaskSideBar from "@/components/TaskSideBar";
+import { TasksContext } from "@/context/task.context";
 import { useFetchTask } from "@/hooks/useFetchTask.hook.js";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useEffect } from "react";
 
 const Tasks = () => {
   const [order] = useState("asc");
   const [limit] = useState(10);
   const [page] = useState(1);
 
+  const { setTasks } = useContext(TasksContext);
+
   const { data } = useFetchTask({
     limit,
     page,
     order,
   });
+
+  useEffect(() => {
+    if (data) {
+      setTasks(data);
+    }
+  }, [data]);
 
   return (
     <>
